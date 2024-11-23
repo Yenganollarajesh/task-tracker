@@ -1,62 +1,55 @@
 import React, { useState } from "react";
-import "./../styles/EditTaskModal.css";
 
-const EditTaskModal = ({ task, updateTask, onClose }) => {
-  const [updatedTask, setUpdatedTask] = useState(task);
+const EditNoteModal = ({ note, updateNote, onClose }) => {
+  const [updatedNote, setUpdatedNote] = useState(note);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUpdatedTask({ ...updatedTask, [name]: value });
+    setUpdatedNote({
+      ...updatedNote,
+      [name]: value,
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateTask(updatedTask);
+    updateNote(updatedNote);
     onClose();
   };
 
   return (
     <div className="modal">
       <div className="modal-content">
-        <h2>Edit Task</h2>
+        <h2>Edit Note</h2>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
             name="title"
-            value={updatedTask.title}
+            value={updatedNote.title}
             onChange={handleChange}
             required
           />
           <textarea
             name="description"
-            value={updatedTask.description}
+            value={updatedNote.description}
             onChange={handleChange}
             required
           ></textarea>
-          <input
-            type="date"
-            name="dueDate"
-            value={updatedTask.dueDate}
-            onChange={handleChange}
-            required
-          />
           <select
-            name="status"
-            value={updatedTask.status}
+            name="category"
+            value={updatedNote.category}
             onChange={handleChange}
           >
-            <option value="Pending">Pending</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Completed">Completed</option>
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+            <option value="Others">Others</option>
           </select>
-          <div className="modal-actions">
-            <button type="submit">Save</button>
-            <button onClick={onClose}>Cancel</button>
-          </div>
+          <button type="submit">Save</button>
+          <button onClick={onClose}>Cancel</button>
         </form>
       </div>
     </div>
   );
 };
 
-export default EditTaskModal;
+export default EditNoteModal;

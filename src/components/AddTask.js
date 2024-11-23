@@ -1,59 +1,55 @@
 import React, { useState } from "react";
-import "./../styles/AddTask.css";
 
-const AddTask = ({ addTask }) => {
-  const [task, setTask] = useState({
-    id: Date.now(),
+const AddNote = ({ addNote }) => {
+  const [note, setNote] = useState({
     title: "",
     description: "",
-    dueDate: "",
-    status: "Pending",
+    category: "Others",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setTask({ ...task, [name]: value });
+    setNote({
+      ...note,
+      [name]: value,
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addTask(task);
-    setTask({ id: Date.now(), title: "", description: "", dueDate: "", status: "Pending" });
+    addNote(note);
+    setNote({
+      title: "",
+      description: "",
+      category: "Others",
+    });
   };
 
   return (
-    <form className="add-task-form" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
         name="title"
-        value={task.title}
+        value={note.title}
         onChange={handleChange}
-        placeholder="Task Title"
+        placeholder="Title"
         required
       />
       <textarea
         name="description"
-        value={task.description}
+        value={note.description}
         onChange={handleChange}
-        placeholder="Task Description"
-        required
-      ></textarea>
-      <input
-        type="date"
-        name="dueDate"
-        value={task.dueDate}
-        onChange={handleChange}
+        placeholder="Description"
         required
       />
-      <select name="status" value={task.status} onChange={handleChange}>
-        <option value="Pending">Pending</option>
-        <option value="In Progress">In Progress</option>
-        <option value="Completed">Completed</option>
+      <select name="category" value={note.category} onChange={handleChange}>
+        <option value="Work">Work</option>
+        <option value="Personal">Personal</option>
+        <option value="Others">Others</option>
       </select>
-      <button type="submit">Add Task</button>
+      <button type="submit">Add Note</button>
     </form>
   );
 };
 
-export default AddTask;
-
+export default AddNote;
